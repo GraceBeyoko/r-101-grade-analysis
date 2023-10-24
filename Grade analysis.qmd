@@ -40,3 +40,16 @@ na_exam <-
 ```
 We observe that `r na_exam` students did not take the exam.
 
+## Question 4
+```{r}
+grade |>
+  ggplot(aes(x=Exam)) + geom_bar()
+
+```
+
+## Question 5
+```{r}
+
+```
+
+

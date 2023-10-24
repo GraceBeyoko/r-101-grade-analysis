@@ -49,7 +49,12 @@ grade |>
 
 ## Question 5
 ```{r}
+grade |>
+  group_by(Id) |>
+  distinct(Group) 
 
+
+  
 ```
 
 

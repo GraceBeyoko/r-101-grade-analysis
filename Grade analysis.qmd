@@ -17,7 +17,6 @@ library(ggplot2)
 ## Question 1
 ```{r}
 grade <- vroom(here("grades.csv"))
-
 ```
 
 ## Question 2
@@ -38,23 +37,48 @@ na_exam <-
   grade |>
   filter(is.na(Exam)) |> nrow()
 ```
+
 We observe that `r na_exam` students did not take the exam.
 
 ## Question 4
 ```{r}
 grade |>
   ggplot(aes(x=Exam)) + geom_bar()
-
 ```
 
 ## Question 5
 ```{r}
-grade |>
-  group_by(Id) |>
-  distinct(Group) 
+students_by_group <- 
+  grade |>
+  reframe(.by=Group, Id) |>
+  group_by(Group)|>
+  summarise(Count = n())
 
-
-  
+knitr::kable(students_by_group)
 ```
 
+## Question 6
+```{r}
+
+```
+
+## Question 7
+```{r}
+
+```
+
+## Question 8
+```{r}
+
+```
+
+## Question 9
+```{r}
+
+```
+
+## Question 10
+```{r}
+
+```
 

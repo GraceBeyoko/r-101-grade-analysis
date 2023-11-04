@@ -61,14 +61,19 @@ knitr::kable(students_by_group)
 
 ## Question 6
 ```{r}
-ggplot(students_by_group, aes(x = Group, y = Count)) +
+students_by_group |>
+ggplot(aes(x = Group, y = Count)) +
   geom_bar(stat = "identity") +
   labs(title = "Number of students in each group")
 ```
 
 ## Question 7
 ```{r}
-
+grade |>
+  ggplot(aes(x=Exam)) + 
+  geom_histogram(na.rm = TRUE) + 
+  facet_wrap(~Group) +
+  labs(title = "Distribution of grades at the exam by groups")
 ```
 
 ## Question 8

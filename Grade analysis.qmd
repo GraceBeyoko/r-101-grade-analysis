@@ -39,7 +39,9 @@ na_exam <-
   filter(is.na(Exam)) |> nrow()
 ```
 
+
 We observe that `r na_exam` students did not take the exam.
+
 
 ## Question 4
 ```{r}
@@ -78,15 +80,43 @@ grade |>
 
 ## Question 8
 ```{r}
-
+na_exam_by_groups <- 
+  grade |>
+  reframe(.by=Group, Id, Exam) |>
+  group_by(Group) |>
+  summarise(na_exam = sum(is.na(Exam)))
 ```
 
 ## Question 9
 ```{r}
-
+na_exam_by_groups |>
+  ggplot(aes(x=Group, y=na_exam)) + geom_col() +
+  labs(title = "Distribution of missed exam by groups" , y = "Number of missed exam")
 ```
 
 ## Question 10
+```{r}
+grade_long_form <-
+  grade |>
+  pivot_longer(cols = -c(Id, Group))
+```
+
+
+## Question 11
+```{r}
+missed_grades_in_grade_long_form <-
+  grade_long_form |>
+  group_by(Id) |>
+  summarise(missed_exam = sum(is.na(value)))
+```
+
+## Question 12
+```{r}
+missed_grades_in_grade_long_form |>
+  ggplot(aes(x=missed_exam)) + geom_bar()
+```
+
+## Question 13
 ```{r}
 
 ```

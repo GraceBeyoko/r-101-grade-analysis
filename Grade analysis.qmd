@@ -78,6 +78,13 @@ grade |>
   labs(title = "Distribution of grades at the exam by groups")
 ```
 
+
+## Question 7(bis)
+```{r}
+
+```
+
+
 ## Question 8
 ```{r}
 na_exam_by_groups <- 
@@ -133,11 +140,17 @@ missed_online_exam_per_students <-
   filter(str_starts(name, "Online_MCQ_")) %>%
   group_by(Id) %>%
   summarise(missed_online_exam = sum(is.na(value)))
-
 ```
 
 ## Question 15
 ```{r}
+graph <-
+  grade |>
+  left_join(missed_online_exam_per_students, by = "Id") 
 
+ggplot(graph, aes(x=Exam)) + geom_bar() + facet_wrap(~missed_online_exam, scales = "free") +
+  labs(title = "Distribution of the grades at the Exam conditioned by the number of missed online tests" , y = "count students")
 ```
+
+
 

@@ -11,12 +11,12 @@ library(vroom)
 library(dplyr)
 library(tidyr)
 library(ggplot2)
+library(stringr)
 ```
 
 
-
 ## Question 1
-```{r}
+```{r message=FALSE}
 grade <- vroom(here("grades.csv"))
 ```
 
@@ -40,7 +40,7 @@ na_exam <-
 ```
 
 
-We observe that `r na_exam` students did not take the exam.
+We observe that 60 students did not take the exam.
 
 
 ## Question 4
@@ -70,7 +70,7 @@ ggplot(aes(x = Group, y = Count)) +
 ```
 
 ## Question 7
-```{r}
+```{r message=FALSE}
 grade |>
   ggplot(aes(x=Exam)) + 
   geom_histogram(na.rm = TRUE) + 
@@ -104,7 +104,7 @@ grade_long_form <-
 
 ## Question 11
 ```{r}
-missed_grades_in_grade_long_form <-
+missed_exam_long_form <-
   grade_long_form |>
   group_by(Id) |>
   summarise(missed_exam = sum(is.na(value)))
@@ -112,22 +112,31 @@ missed_grades_in_grade_long_form <-
 
 ## Question 12
 ```{r}
-missed_grades_in_grade_long_form |>
+missed_exam_long_form |>
   ggplot(aes(x=missed_exam)) + geom_bar() +
   labs(title = "Distribution of missed exam per student")
 ```
 
 ## Question 13
-```{r}
-grade_long_form_by_group <-
+```{r message=FALSE}
+missed_exam_long_form_by_group <-
   grade_long_form |>
-  filter(.by = Id) |>
-  count(is.na(value))
-
-  
+  group_by(Group, Id) %>%
+  summarise(Missed_Exam = any(is.na(value))) %>%
+  summarise(students_with_na_exam = sum(Missed_Exam))
 ```
 
 ## Question 14
+```{r}
+missed_online_exam_per_students <-
+  grade_long_form |>
+  filter(str_starts(name, "Online_MCQ_")) %>%
+  group_by(Id) %>%
+  summarise(missed_online_exam = sum(is.na(value)))
+
+```
+
+## Question 15
 ```{r}
 
 ```

@@ -113,10 +113,21 @@ missed_grades_in_grade_long_form <-
 ## Question 12
 ```{r}
 missed_grades_in_grade_long_form |>
-  ggplot(aes(x=missed_exam)) + geom_bar()
+  ggplot(aes(x=missed_exam)) + geom_bar() +
+  labs(title = "Distribution of missed exam per student")
 ```
 
 ## Question 13
+```{r}
+grade_long_form_by_group <-
+  grade_long_form |>
+  filter(.by = Id) |>
+  count(is.na(value))
+
+  
+```
+
+## Question 14
 ```{r}
 
 ```

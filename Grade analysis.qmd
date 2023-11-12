@@ -78,13 +78,6 @@ grade |>
   labs(title = "Distribution of grades at the exam by groups")
 ```
 
-
-## Question 7(bis)
-```{r}
-
-```
-
-
 ## Question 8
 ```{r}
 na_exam_by_groups <- 
@@ -152,5 +145,18 @@ ggplot(graph, aes(x=Exam)) + geom_bar() + facet_wrap(~missed_online_exam, scales
   labs(title = "Distribution of the grades at the Exam conditioned by the number of missed online tests" , y = "count students")
 ```
 
+## Question 16
+```{r}
 
+```
+
+## Question 17
+```{r}
+
+```
+
+## Question 18
+```{r}
+
+```
 

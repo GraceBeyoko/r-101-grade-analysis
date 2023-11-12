@@ -91,7 +91,8 @@ na_exam_by_groups <-
 ```{r}
 na_exam_by_groups |>
   ggplot(aes(x=Group, y=na_exam)) + geom_col() +
-  labs(title = "Distribution of missed exam by groups" , y = "Number of missed exam")
+  labs(title = "Distribution of missed exam by groups" , 
+       y = "Number of missed exam")
 ```
 
 ## Question 10
@@ -100,7 +101,6 @@ grade_long_form <-
   grade |>
   pivot_longer(cols = -c(Id, Group))
 ```
-
 
 ## Question 11
 ```{r}
@@ -142,7 +142,8 @@ graph <-
   left_join(missed_online_exam_per_students, by = "Id") 
 
 ggplot(graph, aes(x=Exam)) + geom_bar() + facet_wrap(~missed_online_exam, scales = "free") +
-  labs(title = "Distribution of the grades at the Exam conditioned by the number of missed online tests" , y = "count students")
+  labs(title = "Distribution of the grades at the Exam conditioned by the number of missed online tests"
+       ,y = "count students")
 ```
 
 ## Question 16
@@ -162,11 +163,22 @@ new_table_2 <-
   group_by(Group, Id) %>%
   summarise(MCQ_missed = any(is.na(value))) %>%
   summarise(P_missed = sum(MCQ_missed)/n()*100)
-
 ```
 
 ## Question 18
 ```{r}
+avg_grade_group <-
+  grade |>
+  reframe(.by = Group, Id, Exam) %>%
+  group_by(Group) %>%
+  summarise(Average_at_exam = mean(Exam, na.rm = TRUE))
 
+merged_table <-
+  inner_join(new_table_2, avg_grade_group, by = "Group")
+
+ggplot(merged_table, aes(x=P_missed, y= Average_at_exam, color = Group)) + geom_point () +
+  labs(title = "Average exam grade vs percentage of missed MCQ_xx grades",
+       x = "Percentage of missed MCQ_xx grades",
+       y = "Average exam grade")
 ```
 

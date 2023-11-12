@@ -147,11 +147,21 @@ ggplot(graph, aes(x=Exam)) + geom_bar() + facet_wrap(~missed_online_exam, scales
 
 ## Question 16
 ```{r}
-
+new_table_1 <- 
+  grade_long_form |>
+  filter(str_starts(name, "MCQ_")) %>%
+  group_by(Id) %>%
+  summarise(missed = any(is.na(value)))
 ```
 
 ## Question 17
 ```{r}
+new_table_2 <-
+  grade_long_form |>
+  filter(str_starts(name, "MCQ_")) %>%
+  group_by(Group, Id) %>%
+  summarise(MCQ_missed = any(is.na(value))) %>%
+  summarise(P_missed = sum(MCQ_missed)/n()*100)
 
 ```
 
